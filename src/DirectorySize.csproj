@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <StartupObject>DirectorySize.Program</StartupObject>
+    <AssemblyName>dirz</AssemblyName>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <Title>DirZ - Directory Size Report</Title>
+    <Authors>Arturo Torres</Authors>
+    <Version>$(AssemblyVersion)</Version>
+    <PackageId>DirZ</PackageId>
+    <Description>Provides a report with the size of the content for an specified folder.</Description>
+    <Copyright>Copyright ©2023 ArturoTorres</Copyright>
+    <PackageProjectUrl>https://github.com/ArtTorres/DirZ</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MagnetArgs" Version="0.6.0" />
+  </ItemGroup>
+
+</Project>
