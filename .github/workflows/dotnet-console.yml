@@ -33,11 +33,6 @@ jobs:
       working-directory: ./src
       run: dotnet publish -c Release -o ./publish
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
