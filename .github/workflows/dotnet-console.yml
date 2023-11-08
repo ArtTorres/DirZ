@@ -2,7 +2,8 @@ name: DirZ Release
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - '0.*'
   pull_request:
     branches: [ "main" ]
 
@@ -47,7 +48,8 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "v${{github.ref_name}}"
         prerelease: false
-        title: "DirZ - v2.0"
+        title: "DirZ - v${{github.ref_name}}"
         files: ./src/dirz_bin.zip
+    
