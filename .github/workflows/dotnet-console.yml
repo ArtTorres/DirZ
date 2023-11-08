@@ -33,8 +33,12 @@ jobs:
       working-directory: ./src
       run: dotnet publish -c Release -o ./publish
 
+    - name: Zip Publish
+      working-directory: ./src 
+      run: 7z a dirz_bin.zip ./publish/*.*
+
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: publish
-        path: ./src/publish
+        path: ./src/dirz_bin.zip
