@@ -1,4 +1,4 @@
-name: .NET Console App
+name: DirZ Release
 
 on:
   push:
@@ -42,3 +42,12 @@ jobs:
       with:
         name: publish
         path: ./src/dirz_bin.zip
+        
+    - name: "Build & test"
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "DirZ - v2.0"
+        files: ./src/dirz_bin.zip
