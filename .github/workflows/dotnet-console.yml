@@ -29,6 +29,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Publish
+      working-directory: ./src
       run: dotnet publish -c Release -o ./publish
 
   publish:
