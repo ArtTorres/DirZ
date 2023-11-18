@@ -21,10 +21,17 @@
 
             foreach (var item in items)
             {
+                Console.Write(
+                    "{0,9}\t",
+                    Compact(item.Size, highlight)
+                );
+
+                if (highlight)
+                    Console.ForegroundColor = item.Type == FileType.Directory ? ConsoleColor.Yellow : ConsoleColor.White;
+
                 Console.WriteLine(
-                    "{0,9}\t{1}",
-                    Compact(item.Size, highlight),
-                    item.Id
+                    "{0}",
+                    item.Type == FileType.Directory ? highlight ? $"{item.Id}": $"[{item.Id}]" : $"{item.Id}"
                 );
             }
 
@@ -54,6 +61,21 @@
                 {
                     return value;
                 }
+            }
+        }
+
+        private static char Compact(FileType type)
+        {
+            switch (type)
+            {
+                case FileType.Root:
+                    return 'R';
+                case FileType.Directory:
+                    return 'D';
+                case FileType.File:
+                    return 'F';
+                default:
+                    return 'E';
             }
         }
     }

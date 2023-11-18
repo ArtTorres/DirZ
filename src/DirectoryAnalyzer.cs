@@ -14,7 +14,8 @@
                 yield return new SizeInfo()
                 {
                     Id = dir.Name,
-                    Size = Evaluate(dir)
+                    Size = Evaluate(dir),
+                    Type = FileType.Directory
                 };
             }
 
@@ -23,7 +24,8 @@
                 yield return new SizeInfo()
                 {
                     Id = file.Name,
-                    Size = file.Length
+                    Size = file.Length,
+                    Type = FileType.File
                 };
             }
         }
