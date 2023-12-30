@@ -3,7 +3,7 @@ name: DirZ Release
 on:
   push:
     tags:
-      - '2.*'
+      - '3.*'
   pull_request:
     branches: [ "main" ]
 
