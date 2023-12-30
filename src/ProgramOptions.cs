@@ -9,13 +9,13 @@ namespace DirZ
         [Argument("path", Alias = "p")]
         public string Path { get; set; }
 
-        [Argument("highlight", Alias = "h"), IfPresent]
+        [Argument("highlight", Alias = "hl"), IfPresent]
         public bool Highlight { get; set; }
 
-        [Argument("sort", Alias = "s"), Parser(typeof(OrderParser))]
+        [Argument("order", Alias = "o"), Parser(typeof(OrderParser))]
         public Order Order { get; set; }
 
-        [Argument("show-hidden", Alias = "sh"), IfPresent]
+        [Argument("show-hidden", Alias = "h"), IfPresent]
         public bool ShowHidden {  get; set; }
 
         [Argument("verbose", Alias = "v"), IfPresent]
