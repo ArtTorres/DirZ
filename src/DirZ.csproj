@@ -4,27 +4,27 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <Nullable>warnings</Nullable>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
-    <StartupObject>DirectorySize.Program</StartupObject>
+    <StartupObject>DirZ.Program</StartupObject>
     <AssemblyName>dirz</AssemblyName>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <Title>DirZ - Directory Size Report</Title>
     <Authors>Arturo Torres</Authors>
     <Version>$(AssemblyVersion)</Version>
     <PackageId>DirZ</PackageId>
-    <Description>Provides a report with the size of the content for an specified folder.</Description>
+    <Description>Provides a report on the size of a chosen directory.</Description>
     <Copyright>Copyright ©2023 ArturoTorres</Copyright>
     <PackageProjectUrl>https://github.com/ArtTorres/DirZ</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

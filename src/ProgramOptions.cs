@@ -1,7 +1,7 @@
 ﻿using MagnetArgs;
 using MagnetArgs.Parsers;
 
-namespace DirectorySize
+namespace DirZ
 {
     [Magnetizable]
     internal class ProgramOptions
@@ -9,11 +9,17 @@ namespace DirectorySize
         [Argument("path", Alias = "p")]
         public string Path { get; set; }
 
-        [Argument("highlight", Alias = "h"), IfPresent]
+        [Argument("highlight", Alias = "hl"), IfPresent]
         public bool Highlight { get; set; }
 
         [Argument("order", Alias = "o"), Parser(typeof(OrderParser))]
         public Order Order { get; set; }
+
+        [Argument("show-hidden", Alias = "h"), IfPresent]
+        public bool ShowHidden {  get; set; }
+
+        [Argument("verbose", Alias = "v"), IfPresent]
+        public bool Verbose { get; set; }
     }
 
     internal enum Order
@@ -27,8 +33,9 @@ namespace DirectorySize
     {
         public object Parse(string value)
         {
-            return value.StartsWith("z", StringComparison.OrdinalIgnoreCase) 
-                ? Order.Descending : Order.Ascending;
+            return value.StartsWith("des", StringComparison.OrdinalIgnoreCase)
+                ? Order.Descending : value.StartsWith("asc", StringComparison.OrdinalIgnoreCase) ? 
+                  Order.Ascending : Order.Default;
         }
     }
 }

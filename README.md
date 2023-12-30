@@ -1,6 +1,7 @@
-# DirZ - Directory size evaluation tool [![DirZ](https://github.com/ArtTorres/DirZ/actions/workflows/dotnet-console.yml/badge.svg?branch=main)](https://github.com/ArtTorres/DirZ/actions/workflows/dotnet-console.yml)
+# DirZ - Size directory evaluation tool 
+[![DirZ](https://github.com/ArtTorres/DirZ/actions/workflows/dotnet-console.yml/badge.svg?branch=main)](https://github.com/ArtTorres/DirZ/actions/workflows/dotnet-console.yml)
 
-Simple tool to evaluate the size of directories and files.
+Shows the total size of the current directory or any specified path.
 
 ## Setup
 
@@ -8,48 +9,50 @@ Simple tool to evaluate the size of directories and files.
 2. Unzip
 3. Execute
 
-## Support
-- .Net 7.0 - Any OS
+## Requirements
+- .Net 7.0 or newer on Any OS
 
-## Parameters
-| Parameter | Alias | Description |
+## Arguments
+| Name | Alias | Description |
 | -------- | ------- | ------- |
-| path | p | Sets the path to be evaluated |
-| highlight | h | Color items based in their sizes |
-| order | o | Order items based in their sizes, ["az" ascendant / "za" descendant] |
+| --path | -p | Sets the path to be evaluated |
+| --highlight | -hl | Color items based in their sizes |
+| --order | -o | Order items based in their sizes, [ascendant / descendant] [asc / desc] |
+| --show-hidden | -h | Show hidden files and directories. Disabled by default. |
+| --verbose | -v | Displays a resume of evaluated files and encountered errors. |
 
 ### Examples
 ``` shell
-# Windows CMD
+# Windows Terminal
 
 # Displays a list of directory sizes in current location
 C:\> dirz.exe 
 
 # Displays a list of directory sizes at a specified location
-C:\> dirz.exe /path "D:\External>"
+C:\> dirz.exe --path "D:\External"
 
 # Displays a list of directory sizes in current location highlighting items by size color
-C:\> dirz.exe /highlight
+C:\> dirz.exe --highlight
 
 # Displays a list of directory sizes in current location ordering by descending size order
-C:\> dirz.exe /order "za"
-```
+C:\> dirz.exe --order "ascendant"
 
-> [!NOTE]
-> Linux OS uses "-" dash symbol in their parameters.
+# Displays a list of directory sizes in current location and shows a resume at the end
+C:\> dirz.exe --verbose
 
-### Examples
-``` shell
-# Ubuntu Terminal
+# Displays a list of directory sizes (including hidden files and directories) at a specified location
+C:\> dirz.exe --path "D:\External" --show-hidden
+
+# Linux Terminal Supported
 
 # Displays a list of directory sizes at a specified location
-$ dirz -path "/home/External>" -highlight -order "za"
+$ dirz --path "/home/External" --highlight --order "descendant"
 ```
 
-### Output
+### Example Output
 ``` shell
-# Windows CMD
-C:\>dirz.exe /path "C:\DirZ"
+# Windows Terminal
+C:\> dirz.exe --path "C:\DirZ"
   2.81 kB       .git
   8.99 kB       .github
 200.26 kB       src
@@ -59,6 +62,9 @@ C:\>dirz.exe /path "C:\DirZ"
 ```
 
 ---
-## Project References
+### Project References
 - [Homepage](https://github.com/ArtTorres/DirZ)
 - [License](https://github.com/ArtTorres/DirZ/blob/main/LICENSE)
+
+### Issues or suggestions
+- [Issues Secction]()

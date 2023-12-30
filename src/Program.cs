@@ -1,6 +1,6 @@
 ﻿using MagnetArgs;
 
-namespace DirectorySize
+namespace DirZ
 {
     internal class Program
     {
@@ -8,26 +8,28 @@ namespace DirectorySize
         {
             try
             {
-                char symbol = Environment.OSVersion.ToString().Contains("win", StringComparison.OrdinalIgnoreCase) ? '/' : '-';
-                var options = Magnet.Attract<ProgramOptions>(args, symbol);
+                var options = Magnet.Attract<ProgramOptions>(args);
 
                 if (string.IsNullOrEmpty(options.Path))
-                    options.Path = System.Environment.CurrentDirectory;
-
-                var items = DirectoryAnalyzer.Analyze(options.Path);
-
-                Report.Print(
-                    options.Order == Order.Default ? items : 
-                        options.Order == Order.Descending ? items.OrderByDescending(s => s.Size) : items.OrderBy(s => s.Size),
-                    options.Highlight
-                );
-            }
-            catch (AggregateException ex)
-            {
-                foreach (var e in ex.InnerExceptions)
                 {
-                    Console.WriteLine(e.Message);
+                    options.Path = System.Environment.CurrentDirectory;
                 }
+
+                var analyzer = new Analyzer(options.ShowHidden);
+                var report = new Report(analyzer);
+
+                report.Generate(options.Path);
+                report.DisplayReport(options.Order, options.Highlight);
+
+                if (options.Verbose)
+                {
+                    report.DisplayResume();
+                    report.DisplayErrors();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

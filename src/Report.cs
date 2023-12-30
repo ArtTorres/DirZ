@@ -1,30 +1,62 @@
-﻿namespace DirectorySize
-{
-    internal static class Report
-    {
-        private static string[] _units = new string[] { "B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-        private static ConsoleColor[] _colors = new ConsoleColor[] {
-            ConsoleColor.Gray,
-            ConsoleColor.Cyan,
-            ConsoleColor.Yellow,
-            ConsoleColor.White,
-            ConsoleColor.Green,
-            ConsoleColor.Blue,
-            ConsoleColor.Magenta,
-            ConsoleColor.Red,
-            ConsoleColor.DarkBlue
-        };
+﻿using DirZ.Events;
+using DirZ.Util;
 
-        public static void Print(IEnumerable<SizeInfo> items, bool highlight = false)
+namespace DirZ
+{
+    internal class Report
+    {
+        private Analyzer _analyzer;
+        private List<Exception> _errors;
+        private List<SizeInfo> _results;
+
+        public Report(Analyzer fileAnalyzer)
+        {
+            _analyzer = fileAnalyzer;
+            _errors = new List<Exception>();
+            _results = new List<SizeInfo>();
+
+            _analyzer.StatsReady+=_analyzer_StatsReady;
+            _analyzer.AccessDenied+=FileAnalyzer_AccessDenied;
+        }
+
+        public void Generate(string path)
+        {
+            _analyzer.Analyze(path);
+        }
+
+        public void DisplayResume()
+        {
+            Console.WriteLine("-----------------");
+            Console.WriteLine($"Files processed [{_analyzer.FilesProcessed}]");
+        }
+
+        public void DisplayReport(Order order = Order.Default, bool highlight = false)
         {
             var systemColor = Console.ForegroundColor;
 
+            var items = order == Order.Default ? 
+                                    _results.ToList() : order == Order.Descending ? 
+                                    _results.OrderByDescending(s => s.Size).ToList() : _results.OrderBy(s => s.Size).ToList();
+
             foreach (var item in items)
             {
+                int unitIndex = 0;
+                decimal size = SizeFormatTool.Compact(item.Size, ref unitIndex);
+
+                if (highlight)
+                    Console.ForegroundColor = SizeFormatTool.GetUnitColor(unitIndex);
+
+                Console.Write(
+                    "{0,9}\t",
+                    $"{size:0.00} {SizeFormatTool.GetUnit(unitIndex)}"
+                );
+
+                if (highlight)
+                    Console.ForegroundColor = item.Type == FileType.Directory ? ConsoleColor.Yellow : ConsoleColor.White;
+
                 Console.WriteLine(
-                    "{0,9}\t{1}",
-                    Compact(item.Size, highlight),
-                    item.Id
+                    "{0}",
+                    item.Type == FileType.Directory ? highlight ? $"{item.Id}" : $"[{item.Id}]" : $"{item.Id}"
                 );
             }
 
@@ -32,29 +64,28 @@
                 Console.ForegroundColor = systemColor;
         }
 
-        private static string Compact(long size, bool highlight)
+        public void DisplayErrors()
         {
-            int c = 0;
-            decimal s = Shrink(size, ref c);
+            Console.WriteLine($"Identified errors [{_errors.Count}]");
 
-            if (highlight)
-                Console.ForegroundColor = _colors[c];
-
-            return $"{s:0.00} {_units[c]}";
-
-            decimal Shrink(decimal value, ref int cycles)
+            foreach (Exception e in _errors)
             {
-                if (value >= 1000)
-                {
-                    cycles++;
-
-                    return Shrink(value / 1024m, ref cycles);
-                }
-                else
-                {
-                    return value;
-                }
+                Console.WriteLine($"{e.Message}");
             }
         }
+
+        #region Events
+
+        private void _analyzer_StatsReady(object sender, Events.StatsReadyEvent e)
+        {
+            _results.Add(e.Size);
+        }
+
+        private void FileAnalyzer_AccessDenied(object sender, AccessDeniedEvent e)
+        {
+            _errors.Add(e.Exception);
+        }
+
+        #endregion
     }
 }
