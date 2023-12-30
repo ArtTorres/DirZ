@@ -1,4 +1,4 @@
-﻿namespace DirectorySize
+﻿namespace DirZ
 {
     internal enum FileType
     {
