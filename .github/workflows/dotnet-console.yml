@@ -24,6 +24,7 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Restore dependencies
+      working-directory: ./src
       run: dotnet restore
 
     - name: Build
