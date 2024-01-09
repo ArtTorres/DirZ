@@ -17,7 +17,7 @@ jobs:
         fetch-depth: 0
 
     - name: Exit if not on master branch
-      if: endsWith(github.ref, 'master') == false
+      if: endsWith(github.ref, 'main') == false
       run: exit -1
 
     - name: Download artifacts
@@ -47,7 +47,7 @@ jobs:
           fetch-depth: 0
   
       - name: Exit if not on master branch
-        if: endsWith(github.ref, 'master') == false
+        if: endsWith(github.ref, 'main') == false
         run: exit -1
         
       - name: Install .NET Core
@@ -86,7 +86,7 @@ jobs:
           fetch-depth: 0
   
       - name: Exit if not on master branch
-        if: endsWith(github.ref, 'master') == false
+        if: endsWith(github.ref, 'main') == false
         run: exit -1
         
       - name: Install .NET Core
