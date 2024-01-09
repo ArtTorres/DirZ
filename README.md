@@ -1,5 +1,5 @@
 # DirZ - Size directory evaluation tool 
-[![Build](https://github.com/ArtTorres/DirZ/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ArtTorres/DirZ/actions/workflows/build.yml)
+[![Build](https://github.com/ArtTorres/DirZ/actions/workflows/build.yml/badge.svg)](https://github.com/ArtTorres/DirZ/actions/workflows/build.yml)
 
 Shows the total size of the current directory or any specified path.
 
@@ -10,7 +10,7 @@ Shows the total size of the current directory or any specified path.
 3. Execute
 
 ## Requirements
-- .Net 7.0 or newer on Any OS
+- .Net 6.0 or newer on Windows and Linux.
 
 ## Arguments
 | Name | Alias | Description |
@@ -67,4 +67,4 @@ C:\> dirz.exe --path "C:\DirZ"
 - [License](https://github.com/ArtTorres/DirZ/blob/main/LICENSE)
 
 ### Issues or suggestions
-- [Issues Secction]()
+- [Issues Secction](https://github.com/ArtTorres/DirZ/issues)
