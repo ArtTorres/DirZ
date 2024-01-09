@@ -1,0 +1,113 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - '3.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    needs: [build-windows, build-linux]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Exit if not on master branch
+      if: endsWith(github.ref, 'master') == false
+      run: exit -1
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+        
+    - name: "Create release"
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "${{github.ref_name}}"
+        prerelease: false
+        title: "DirZ - v${{github.ref_name}}"
+        files: |
+          dirz_win_${{github.ref_name}}.zip 
+          dirz_linux_${{github.ref_name}}.zip
+
+  build-windows:
+    runs-on: windows-2022
+    defaults:
+      run:
+        working-directory: ./src
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+  
+      - name: Exit if not on master branch
+        if: endsWith(github.ref, 'master') == false
+        run: exit -1
+        
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+  
+      - name: Restore dependencies
+        run: dotnet restore
+  
+      - name: Build
+        run: dotnet build --configuration Release
+  
+      - name: Publish
+        run: dotnet publish -c Release -o ./publish -p:PublishSingleFile=true --self-contained false
+  
+      - name: Zip
+        run: 7z a dirz_${{github.ref_name}}_win.zip ./publish/*.exe
+  
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: publish
+          path: ./src/dirz_${{github.ref_name}}_win.zip
+  
+  build-linux:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./src
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+  
+      - name: Exit if not on master branch
+        if: endsWith(github.ref, 'master') == false
+        run: exit -1
+        
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+  
+      - name: Restore dependencies
+        run: dotnet restore
+  
+      - name: Build
+        run: dotnet build --configuration Release
+  
+      - name: Publish
+        run: dotnet publish -c Release -o ./publish -p:PublishSingleFile=true --self-contained false
+  
+      - name: Zip
+        run: 7z a dirz_${{github.ref_name}}_linux.zip ./publish/*.exe
+  
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: publish
+          path: ./src/dirz_${{github.ref_name}}_linux.zip
