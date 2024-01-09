@@ -1,5 +1,5 @@
 # DirZ - Size directory evaluation tool 
-[![DirZ](https://github.com/ArtTorres/DirZ/actions/workflows/dotnet-console.yml/badge.svg?branch=main)](https://github.com/ArtTorres/DirZ/actions/workflows/dotnet-console.yml)
+[![Build](https://github.com/ArtTorres/DirZ/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ArtTorres/DirZ/actions/workflows/build.yml)
 
 Shows the total size of the current directory or any specified path.
 
