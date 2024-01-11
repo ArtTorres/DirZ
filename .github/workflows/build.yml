@@ -12,12 +12,15 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Download artifacts
       uses: actions/download-artifact@v4
+
+    - name: Display structure of downloaded files
+      run: ls -R
         
     - name: "Create release"
       uses: "marvinpinto/action-automatic-releases@latest"
@@ -38,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
         
@@ -58,12 +61,15 @@ jobs:
   
       - name: Zip
         run: 7z a dirz_${{github.ref_name}}_win.zip ./publish/*.exe
+        
+      - name: Display structure of zip files
+        run: ls -R
   
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: publish
-          path: ./src/dirz_${{github.ref_name}}_win.zip
+          name: dirz_win
+          path: dirz_${{github.ref_name}}_win.zip
   
   build-linux:
     runs-on: ubuntu-22.04
@@ -73,7 +79,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
         
@@ -93,9 +99,12 @@ jobs:
   
       - name: Zip
         run: 7z a dirz_${{github.ref_name}}_linux.zip ./publish/*.exe
+
+      - name: Display structure of zip files
+        run: ls -R
   
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: publish
-          path: ./src/dirz_${{github.ref_name}}_linux.zip
+          name: dirz_linux
+          path: dirz_${{github.ref_name}}_linux.zip
