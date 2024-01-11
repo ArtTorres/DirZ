@@ -67,4 +67,4 @@ C:\> dirz.exe --path "C:\DirZ"
 - [License](https://github.com/ArtTorres/DirZ/blob/main/LICENSE)
 
 ### Issues or suggestions
-- [Issues Secction](https://github.com/ArtTorres/DirZ/issues)
+- [Issues Section](https://github.com/ArtTorres/DirZ/issues)
