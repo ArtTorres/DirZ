@@ -30,8 +30,8 @@ jobs:
         prerelease: false
         title: "DirZ - v${{github.ref_name}}"
         files: |
-          dirz_win_${{github.ref_name}}.zip 
-          dirz_linux_${{github.ref_name}}.zip
+          ./dirz_win/dirz_win_${{github.ref_name}}.zip 
+          ./dirz_linux/dirz_linux_${{github.ref_name}}.zip
 
   build-windows:
     runs-on: windows-2022
