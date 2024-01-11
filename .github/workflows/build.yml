@@ -69,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dirz_win
-          path: dirz_${{github.ref_name}}_win.zip
+          path: ./src/dirz_${{github.ref_name}}_win.zip
   
   build-linux:
     runs-on: ubuntu-22.04
@@ -107,4 +107,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dirz_linux
-          path: dirz_${{github.ref_name}}_linux.zip
+          path: ./src/dirz_${{github.ref_name}}_linux.zip
