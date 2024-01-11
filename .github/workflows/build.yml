@@ -30,8 +30,8 @@ jobs:
         prerelease: false
         title: "DirZ - v${{github.ref_name}}"
         files: |
-          ./dirz_win/dirz_win_${{github.ref_name}}.zip 
-          ./dirz_linux/dirz_linux_${{github.ref_name}}.zip
+          ./dirz_win/dirz_${{github.ref_name}}_win.zip
+          ./dirz_linux/dirz_${{github.ref_name}}_linux.zip
 
   build-windows:
     runs-on: windows-2022
@@ -60,7 +60,7 @@ jobs:
         run: dotnet publish -c Release -o ./publish -p:PublishSingleFile=true --self-contained false
   
       - name: Zip
-        run: 7z a dirz_${{github.ref_name}}_win.zip ./publish/*.exe
+        run: 7z a dirz_${{github.ref_name}}_win.zip ./publish/dirz.exe
         
       - name: Display structure of zip files
         run: ls -R
@@ -98,7 +98,7 @@ jobs:
         run: dotnet publish -c Release -o ./publish -p:PublishSingleFile=true --self-contained false
   
       - name: Zip
-        run: 7z a dirz_${{github.ref_name}}_linux.zip ./publish/*.exe
+        run: 7z a dirz_${{github.ref_name}}_linux.zip ./publish/dirz
 
       - name: Display structure of zip files
         run: ls -R
