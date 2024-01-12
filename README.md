@@ -15,7 +15,8 @@ Shows the total size of the current directory or any specified path.
 ## Arguments
 | Name | Alias | Description |
 | -------- | ------- | ------- |
-| --path | -p | Sets the path to be evaluated |
+| (no path) | | Evaluates the current directory |
+| --path | -p | Evaluates the selected path |
 | --highlight | -hl | Color items based in their sizes |
 | --order | -o | Order items based in their sizes, [ascendant / descendant] [asc / desc] |
 | --show-hidden | -h | Show hidden files and directories. Disabled by default. |
