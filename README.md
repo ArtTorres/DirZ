@@ -24,7 +24,7 @@ Shows the total size of the current directory or any specified path.
 
 ### Examples
 ``` shell
-# Windows Terminal
+# - Windows Terminal
 
 # Displays a list of directory sizes in current location
 C:\> dirz.exe 
@@ -44,7 +44,7 @@ C:\> dirz.exe --verbose
 # Displays a list of directory sizes (including hidden files and directories) at a specified location
 C:\> dirz.exe --path "D:\External" --show-hidden
 
-# Linux Terminal Supported
+# - Linux Terminal Supported
 
 # Displays a list of directory sizes at a specified location
 $ dirz --path "/home/External" --highlight --order "descendant"
@@ -52,11 +52,12 @@ $ dirz --path "/home/External" --highlight --order "descendant"
 
 ### Example Output
 ``` shell
-# Windows Terminal
+# - Windows Terminal
+
 C:\> dirz.exe --path "C:\DirZ"
-  2.81 kB       .git
-  8.99 kB       .github
-200.26 kB       src
+  2.81 kB       [.git]
+  8.99 kB       [.github]
+200.26 kB       [src]
   7.09 kB       .gitignore
   1.07 kB       LICENSE
   1.32 kB       README.md
